@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 1918362981871924645}
   - component: {fileID: 1918362981871924644}
   m_Layer: 10
-  m_Name: SuperCapsuleBoy (Player)
+  m_Name: StudentPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

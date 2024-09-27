@@ -490,7 +490,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CapsuleBoy
+  m_Name: StudentPlayer
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Jump
