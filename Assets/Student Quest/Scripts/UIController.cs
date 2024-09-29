@@ -36,7 +36,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField]
     private Text txtAllGoldenBlocks;
-    
+
     [SerializeField]
     private Text txtAllTime;
 
@@ -51,7 +51,6 @@ public class UIController : MonoBehaviour
     private static bool gameStarted = false;
     public static UIController instance;
 
-
     [SerializeField] private List<GameObject> worldCoins = new List<GameObject>();
     [SerializeField] private List<GameObject> worldRedCoins = new List<GameObject>();
     [SerializeField] private List<GameObject> worldBricks = new List<GameObject>();
@@ -64,7 +63,7 @@ public class UIController : MonoBehaviour
     {
         instance = this;
         Cursor.visible = false;
-       
+
         txtCoins.text = "0";
         fillCapsule.fillAmount = 0;
 
@@ -82,7 +81,6 @@ public class UIController : MonoBehaviour
                     moreCoins += 10;
                 }
             }
-
         }
 
         foreach (var brick in worldGoldenBlocks)
@@ -99,7 +97,6 @@ public class UIController : MonoBehaviour
                     moreCoins += 10;
                 }
             }
-
         }
 
         canvasGame.SetActive(true);
@@ -182,23 +179,13 @@ public class UIController : MonoBehaviour
     {
         yield return null;
 
-        txtAllRedCoins.text = GameManager.instance.playerRedCoins + " / " + ((int)worldRedCoins.Count + (int)moreRedCoins);
-        txtAllCoins.text = GameManager.instance.playerCoins + " / " + ((int)worldCoins.Count + (int)moreCoins);
-        txtAllBricks.text = GameManager.instance.playerBlocks + " / " + worldBricks.Count;
-        txtAllGoldenBlocks.text = GameManager.instance.playerGoldens + " / " + worldGoldenBlocks.Count;
-
-        float time = GameManager.instance.gameDuration - GameManager.instance.currentTime;
-
-        TimeSpan ts = TimeSpan.FromSeconds(time);
-
-        txtAllTime.text = ts.ToString("m\\:ss\\.fff");
-
-        int Total = ((int)worldRedCoins.Count + (int)moreRedCoins) + ((int)worldCoins.Count + (int)moreCoins) + worldBricks.Count + worldGoldenBlocks.Count;
-        int current = GameManager.instance.playerRedCoins + GameManager.instance.playerCoins + GameManager.instance.playerBlocks + GameManager.instance.playerGoldens;
-
-        int perc = Mathf.RoundToInt(((float)current * 100) / (float)Total);
-
-        txtAllPerc.text = perc.ToString() + "%";
+        // Clear the text fields to prevent any display of previous values
+        txtAllRedCoins.text = "";
+        txtAllCoins.text = "";
+        txtAllBricks.text = "";
+        txtAllGoldenBlocks.text = "";
+        txtAllTime.text = "";
+        txtAllPerc.text = "";
 
         HUD.SetActive(false);
         GameManager.instance.PowerUpCamera();

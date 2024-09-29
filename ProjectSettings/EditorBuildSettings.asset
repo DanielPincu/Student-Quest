@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Student Quest/Scenes/Demo.unity
     guid: aa6c4d25708c9d143b7325403dc80f76
+  - enabled: 1
+    path: Assets/Student Quest/Scenes/Level 1.unity
+    guid: dcb6b62a566d55042825196d04408565
   m_configObjects: {}
