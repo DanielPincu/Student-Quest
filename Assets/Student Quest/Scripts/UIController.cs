@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour
     private GameObject canvasGame; // The main canvas for the game
     [SerializeField]
     private GameObject HUD; // The HUD that displays live info
+    [SerializeField]
+    private GameObject pauseMenu; // The UI panel for the pause menu
 
     [SerializeField]
     private Text txtLifes; // UI text for displaying lives
@@ -44,6 +46,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private UnityEvent onStartGame; // Event for starting the game
 
     private static bool gameStarted = false; // Tracks if the game has started
+    private static bool isPaused = false; // Static variable to track pause state
     public static UIController instance; // Singleton instance for easy access
 
     private void Awake()
@@ -55,6 +58,7 @@ public class UIController : MonoBehaviour
         fillCapsule.fillAmount = 0; // Reset fill amount
 
         canvasGame.SetActive(true); // Activate the game canvas
+        pauseMenu.SetActive(false); // Ensure pause menu is hidden initially
     }
 
     private void Start()
@@ -79,6 +83,16 @@ public class UIController : MonoBehaviour
                 enabled = false; // Disable the script after starting
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Escape)) // Check for Escape key to toggle pause
+        {
+            TogglePause(); // Toggle pause state when the key is pressed
+        }
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused; // Toggle the pause state
+        PauseGame(isPaused); // Call PauseGame with the new state
     }
 
     public void PauseGame(bool value)
@@ -87,11 +101,13 @@ public class UIController : MonoBehaviour
         {
             Time.timeScale = 0; // Pause the game
             Cursor.visible = true; // Show the cursor
+            pauseMenu.SetActive(true); // Show pause menu
         }
         else
         {
             Time.timeScale = 1; // Resume the game
             Cursor.visible = false; // Hide the cursor
+            pauseMenu.SetActive(false); // Hide pause menu
         }
     }
 
