@@ -3,114 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using System;
 
 public class UIController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    private GameObject canvasGame;
+    private GameObject canvasGame; // The main canvas for the game
     [SerializeField]
-    private GameObject HUD;
+    private GameObject HUD; // The HUD that displays live info
 
     [SerializeField]
-    private Text txtLifes;
+    private Text txtLifes; // UI text for displaying lives
     [SerializeField]
-    private Text txtTime;
+    private Text txtTime; // UI text for displaying time left
     [SerializeField]
-    private Text txtCoins;
+    private Text txtCoins; // UI text for displaying coins
     [SerializeField]
-    private Image fillCapsule;
+    private Image fillCapsule; // Fill image for power-up capsule
+
     [Space(10)]
     [SerializeField]
-    private GameObject EndGameHolder;
+    private GameObject EndGameHolder; // The end game UI holder
 
     [SerializeField]
-    private Text txtAllCoins;
-
+    private Text txtAllCoins; // Total coins text at end
     [SerializeField]
-    private Text txtAllRedCoins;
-
+    private Text txtAllRedCoins; // Total red coins text at end
     [SerializeField]
-    private Text txtAllBricks;
-
+    private Text txtAllBricks; // Total bricks text at end
     [SerializeField]
-    private Text txtAllGoldenBlocks;
-
+    private Text txtAllGoldenBlocks; // Total golden blocks text at end
     [SerializeField]
-    private Text txtAllTime;
-
+    private Text txtAllTime; // Total time text at end
     [SerializeField]
-    private Text txtAllPerc;
+    private Text txtAllPerc; // Percentage text at end
 
     [Header("Events")]
-    [SerializeField] private UnityEvent onGameNotStarted;
-    [SerializeField] private UnityEvent onGameStarted;
-    [SerializeField] private UnityEvent onStartGame;
+    [SerializeField] private UnityEvent onGameNotStarted; // Event for when the game hasn't started
+    [SerializeField] private UnityEvent onGameStarted; // Event for when the game has started
+    [SerializeField] private UnityEvent onStartGame; // Event for starting the game
 
-    private static bool gameStarted = false;
-    public static UIController instance;
-
-    [SerializeField] private List<GameObject> worldCoins = new List<GameObject>();
-    [SerializeField] private List<GameObject> worldRedCoins = new List<GameObject>();
-    [SerializeField] private List<GameObject> worldBricks = new List<GameObject>();
-    [SerializeField] private List<GameObject> worldGoldenBlocks = new List<GameObject>();
-
-    private int moreCoins = 0;
-    private int moreRedCoins = 0;
+    private static bool gameStarted = false; // Tracks if the game has started
+    public static UIController instance; // Singleton instance for easy access
 
     private void Awake()
     {
-        instance = this;
-        Cursor.visible = false;
+        instance = this; // Set the singleton instance
+        Cursor.visible = false; // Hide the cursor in-game
 
-        txtCoins.text = "0";
-        fillCapsule.fillAmount = 0;
+        txtCoins.text = "0"; // Initialize coin text
+        fillCapsule.fillAmount = 0; // Reset fill amount
 
-        foreach (var brick in worldBricks)
-        {
-            if (brick.GetComponent<Breakable>().hitEffect)
-            {
-                if (brick.GetComponent<Breakable>().hitEffect.name == "CoinInBox")
-                {
-                    moreCoins += brick.GetComponent<Breakable>().health;
-                }
-                else if (brick.GetComponent<Breakable>().hitEffect.name == "CoinInBox_Red")
-                {
-                    moreRedCoins += 1;
-                    moreCoins += 10;
-                }
-            }
-        }
-
-        foreach (var brick in worldGoldenBlocks)
-        {
-            if (brick.GetComponent<Breakable>().hitEffect)
-            {
-                if (brick.GetComponent<Breakable>().hitEffect.name == "CoinInBox")
-                {
-                    moreCoins += brick.GetComponent<Breakable>().health;
-                }
-                else if (brick.GetComponent<Breakable>().hitEffect.name == "CoinInBox_Red")
-                {
-                    moreRedCoins += 1;
-                    moreCoins += 10;
-                }
-            }
-        }
-
-        canvasGame.SetActive(true);
+        canvasGame.SetActive(true); // Activate the game canvas
     }
 
     private void Start()
     {
         if (!gameStarted)
         {
-            onGameNotStarted.Invoke();
+            onGameNotStarted.Invoke(); // Invoke event if game hasn't started
         }
         else
         {
-            onGameStarted.Invoke();
+            onGameStarted.Invoke(); // Invoke event if game has started
         }
     }
 
@@ -118,10 +73,10 @@ public class UIController : MonoBehaviour
     {
         if (!gameStarted)
         {
-            if (Input.anyKeyDown)
+            if (Input.anyKeyDown) // Listen for any key press to start
             {
-                onStartGame.Invoke();
-                enabled = false;
+                onStartGame.Invoke(); // Invoke start game event
+                enabled = false; // Disable the script after starting
             }
         }
     }
@@ -130,54 +85,54 @@ public class UIController : MonoBehaviour
     {
         if (value)
         {
-            Time.timeScale = 0;
-            Cursor.visible = true;
+            Time.timeScale = 0; // Pause the game
+            Cursor.visible = true; // Show the cursor
         }
         else
         {
-            Time.timeScale = 1;
-            Cursor.visible = false;
+            Time.timeScale = 1; // Resume the game
+            Cursor.visible = false; // Hide the cursor
         }
     }
 
     public void StartGame()
     {
-        gameStarted = true;
+        gameStarted = true; // Set game started flag
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        Application.Quit(); // Quit the application
     }
 
     public void AddCoin(int value)
     {
-        txtCoins.text = value.ToString();
+        txtCoins.text = value.ToString(); // Update coin text
     }
 
     public void SetTime(int value)
     {
-        txtTime.text = value.ToString();
+        txtTime.text = value.ToString(); // Update time text
     }
 
     public void SetLife(int value)
     {
-        txtLifes.text = value.ToString();
+        txtLifes.text = value.ToString(); // Update life text
     }
 
     public void Fill(float perc)
     {
-        fillCapsule.fillAmount = perc;
+        fillCapsule.fillAmount = perc; // Set power-up capsule fill amount
     }
 
     public void ShowEndGame()
     {
-        StartCoroutine(EndSequence());
+        StartCoroutine(EndSequence()); // Start end game sequence
     }
 
-    IEnumerator EndSequence()
+    private IEnumerator EndSequence()
     {
-        yield return null;
+        yield return null; // Wait for a frame
 
         // Clear the text fields to prevent any display of previous values
         txtAllRedCoins.text = "";
@@ -187,14 +142,14 @@ public class UIController : MonoBehaviour
         txtAllTime.text = "";
         txtAllPerc.text = "";
 
-        HUD.SetActive(false);
-        GameManager.instance.PowerUpCamera();
+        HUD.SetActive(false); // Hide HUD
+        GameManager.instance.PowerUpCamera(); // Activate end game camera effect
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1); // Wait before showing end game UI
 
-        Cursor.visible = true;
-        GameManager.instance.EndGame();
-        GameManager.instance.StopPlayer();
-        EndGameHolder.SetActive(true);
+        Cursor.visible = true; // Show the cursor
+        GameManager.instance.EndGame(); // Trigger end game
+        GameManager.instance.StopPlayer(); // Stop the player actions
+        EndGameHolder.SetActive(true); // Show end game UI
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
 public class Breakable : MonoBehaviour
 {
     public GameObject hitEffect;
@@ -14,7 +15,7 @@ public class Breakable : MonoBehaviour
     public UnityEvent onHit;
     public UnityEvent onBreak;
 
-    public bool isGolden;
+    public bool addsLife; // This controls whether the block adds a life
 
     private int currentHealth;
 
@@ -55,9 +56,11 @@ public class Breakable : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        if (isGolden)
+        // Add a life if 'addsLife' is true
+        if (addsLife)
         {
-            GameManager.instance.AddGolden();
+            GameManager.instance.AddLife(1); // Add a life if this block is set to do so
+           
         }
         else
         {
