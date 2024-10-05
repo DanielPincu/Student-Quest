@@ -38,6 +38,6 @@ public class EndGamePoint : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Load the next level (in this case, "Demo")
-        SceneManager.LoadScene("Demo");
+        SceneManager.LoadScene("Level 2");
     }
 }
