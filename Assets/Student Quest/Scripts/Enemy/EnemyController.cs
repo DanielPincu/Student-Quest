@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+
 [RequireComponent(typeof(Rigidbody))]
+
 [RequireComponent(typeof(CapsuleCollider))]
 public class EnemyController : MonoBehaviour
 {
@@ -15,7 +17,6 @@ public class EnemyController : MonoBehaviour
         Tackles,
         Attacker,
     }
-
     [SerializeField] private int Health = 1;
     [SerializeField] private int damage = 1;
     [SerializeField] private Transform[] waypoints; // Array of points to follow
@@ -56,15 +57,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float tackleVolume = 1f;
     [SerializeField] private float tacklePitch = 1.2f;
     [SerializeField] private float yDeadZone = -100;
-
     private int currentWaypointIndex = 0; // Index of current point
     private Rigidbody rb; // Enemy Rigidbody
     private float lastShootTime; // Time when last shot was fired
     private bool dead;
     private Animator anim;
-    private CapsuleCollider enemyCollider; // Renamed from collider to enemyCollider
+    private CapsuleCollider collider;
     private bool firstShoot = true;
     private float currentHitTime;
+
 
     public UnityEngine.Events.UnityEvent onTakeHit;
 
@@ -72,7 +73,7 @@ public class EnemyController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        enemyCollider = GetComponent<CapsuleCollider>(); // Updated to use enemyCollider
+        collider = GetComponent<CapsuleCollider>();
 
         foreach (var p in waypoints)
         {
@@ -105,6 +106,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+
         // Perform a SphereCast to detect the player
         bool playerDetected = false;
         Vector3 playerPosition = Vector3.zero;
@@ -121,6 +123,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (collider.gameObject.CompareTag("Player"))
                 {
+
                     playerPosition = collider.transform.position;
                     playerDetected = true;
                     break;
@@ -179,6 +182,7 @@ public class EnemyController : MonoBehaviour
                     if (!moveSound.isPlaying)
                         moveSound.Play();
                 }
+
             }
             else if (enemyType == type.Attacker)
             {
@@ -186,7 +190,7 @@ public class EnemyController : MonoBehaviour
                 {
                     return;
                 }
-
+                
                 if (Vector3.Distance(playerPosition, transform.position) > attackDistance)
                 {
                     if (currentHitTime <= 0)
@@ -211,11 +215,12 @@ public class EnemyController : MonoBehaviour
                         if (!moveSound.isPlaying)
                             moveSound.Play();
                     }
-                }
+                } 
                 else
                 {
                     if (Time.time - lastShootTime > shootInterval)
                     {
+
                         rb.velocity = Vector3.zero;
 
                         StartCoroutine(DamageDelay());
@@ -230,6 +235,8 @@ public class EnemyController : MonoBehaviour
                         lastShootTime = Time.time; // Update the last shot time
                     }
                 }
+  
+
             }
         }
 
@@ -251,18 +258,20 @@ public class EnemyController : MonoBehaviour
                     moveSound.Play();
             }
 
+
             // Move the enemy towards the current point
             Vector3 direction = (waypoints[currentWaypointIndex].position - transform.position).normalized;
             if (currentHitTime <= 0)
             {
                 Vector3 dir = transform.forward;
                 dir.y = 0;
-                rb.velocity = (Vector3.down * 9) + dir * speed;
+                rb.velocity = (Vector3.down * 9) +  dir * speed;
             }
             else
             {
-                currentHitTime -= Time.fixedDeltaTime;
+                currentHitTime -= Time.fixedDeltaTime; 
             }
+           
 
             // If the enemy reaches the current point, move to the next one
             float distanceToWaypoint = Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position);
@@ -298,41 +307,131 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector3 contactNormal = collision.contacts[0].normal;
-            Vector3 hitDirection = contactNormal * hitForce;
-            rb.AddForce(hitDirection, ForceMode.Impulse);
-            TakeDamage(damage);
+            float angle = Vector3.Angle(contactNormal, Vector3.down);
+
+            if (angle < 45f)
+            {
+                Death(collision.gameObject);
+
+                collision.gameObject.GetComponent<PlayerController>().AddForce(Vector3.up * 6);
+            }
+            else
+            {
+                if (collision.gameObject.GetComponent<PlayerController>().isAttacking && !collision.gameObject.GetComponent<PlayerController>().isGolden)
+                {
+                    currentHitTime = stopOnHit;
+                    onTakeHit.Invoke();
+                    rb.AddForce((transform.position - collision.transform.position).normalized * hitForce, ForceMode.Impulse);
+                }
+                else if (collision.gameObject.GetComponent<PlayerController>().isAttacking && collision.gameObject.GetComponent<PlayerController>().isGolden)
+                {
+                    Death(collision.gameObject);
+                }
+                else
+                {
+                    collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage, (collision.transform.position - transform.position).normalized * 15);
+                    rb.AddForce((transform.position - collision.transform.position).normalized * hitForce/2, ForceMode.Impulse);
+                }
+
+            }
         }
+
+        
     }
 
-    public void TakeDamage(int damage)
+    IEnumerator DamageDelay()
     {
+        yield return new WaitForSeconds(damageDelay);
         if (dead)
-            return;
+        {
+            yield break;
+        }
 
-        Health -= damage;
+        var cols = Physics.OverlapSphere(transform.position + (transform.forward * attackDistance), attackArea, detectionLayerMask);
+        foreach (var col in cols)
+        {
+            col.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage, (col.transform.position - transform.position).normalized * 15);
+        }
+    }
+    public void Death(GameObject toIgnore)
+    {
+        Health = Health - 1;
+
+        if (hitEffect)
+            Instantiate(hitEffect, transform.position + (Vector3.up * collider.height), Quaternion.identity);
+
+
         if (Health <= 0)
         {
+
             dead = true;
-            anim.SetBool("Dead", true);
             rb.isKinematic = true;
+            collider.enabled = false;
 
-            if (hitEffect)
-                Instantiate(hitEffect, transform.position, Quaternion.identity);
+            anim.SetTrigger("Dead");
+            moveSound.volume = 0;
 
-            if (deadEffect)
-                Instantiate(deadEffect, transform.position, Quaternion.identity);
-
-            Destroy(gameObject, 3);
+            StartCoroutine(DestroyDelay());
         }
         else
         {
-            currentHitTime = stopOnHit;
+            currentHitTime = attackStopTime;
+            rb.isKinematic = true;
+            anim.SetTrigger("Damage");
+            moveSound.volume = 0;
+
             onTakeHit.Invoke();
+
+            StartCoroutine(HitDelay(toIgnore));
         }
     }
 
-    private IEnumerator DamageDelay()
+
+    IEnumerator HitDelay(GameObject toIgnore)
     {
-        yield return new WaitForSeconds(damageDelay);
+        Physics.IgnoreCollision(GetComponent<Collider>(), toIgnore.GetComponent<Collider>(), true);
+        yield return new WaitForSeconds(1);
+
+        Physics.IgnoreCollision(GetComponent<Collider>(), toIgnore.GetComponent<Collider>(), false);
+        rb.isKinematic = false;
+    }
+
+    IEnumerator DestroyDelay()
+    {
+        yield return new WaitForSeconds(3);
+
+        if (deadEffect)
+            Instantiate(deadEffect, transform.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(1.5f);
+
+        Destroy(gameObject);
+    }
+
+    public void SetAttacker()
+    {
+        enemyType = type.Attacker;
+        currentHitTime = attackStopTime;
+
+    }
+
+    public void SetPatrol()
+    {
+        enemyType = type.Patrol;
+    }
+
+    public void SetTackler()
+    {
+        enemyType = type.Tackles;
+    }
+
+    public void SetShooter()
+    {
+        enemyType = type.Shoot;
+    }   
+    
+    public void SetNone()
+    {
+        enemyType = type.none;
     }
 }
