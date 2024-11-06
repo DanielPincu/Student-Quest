@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Import the SceneManagement namespace
+using UnityEngine.SceneManagement;
 
 public class EndGamePoint : MonoBehaviour
 {
     [SerializeField] private Animator anim;
     [SerializeField] private AudioSource upSound;
+    [SerializeField] private string levelToLoad; // Set the scene name directly in the Inspector
 
     private bool isActive = false;
 
@@ -37,7 +38,14 @@ public class EndGamePoint : MonoBehaviour
         // Wait for the specified delay
         yield return new WaitForSeconds(delay);
 
-        // Load the next level (in this case, "Demo")
-        SceneManager.LoadScene("Level 2");
+        // Check if levelToLoad is specified and load it
+        if (!string.IsNullOrEmpty(levelToLoad))
+        {
+            SceneManager.LoadScene(levelToLoad);
+        }
+        else
+        {
+            Debug.LogWarning("No level specified to load.");
+        }
     }
 }
