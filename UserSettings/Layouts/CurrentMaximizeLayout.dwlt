@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 50}
   m_MaxSize: {x: 8096, y: 8096}
   vertical: 1
-  controlID: 12046
+  controlID: 12111
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1920, y: 851}
+  m_TargetSize: {x: 1513, y: 851}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -74,14 +74,14 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 01000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -768
-    m_HBaseRangeMax: 768
+    m_HBaseRangeMin: -605.2
+    m_HBaseRangeMax: 605.2
     m_VBaseRangeMin: -340.4
     m_VBaseRangeMax: 340.4
     m_HAllowExceedBaseRangeMin: 1
@@ -507,9 +507,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 99.68986, y: 41.471672, z: -128.52835}
+    m_Target: {x: -77.92977, y: 72.08655, z: -64.716644}
     speed: 2
-    m_Value: {x: 99.68986, y: 41.471672, z: -128.52835}
+    m_Value: {x: -77.92977, y: 72.08655, z: -64.716644}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -555,9 +555,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.03538819, y: 0.036068793, z: -0.001309455, w: -0.99923366}
+    m_Target: {x: 0.06980706, y: 0.9268536, z: -0.21325894, w: 0.30269152}
     speed: 2
-    m_Value: {x: -0.035370108, y: 0.03605036, z: -0.0013087859, w: -0.99872303}
+    m_Value: {x: 0.06977106, y: 0.9263756, z: -0.21314897, w: 0.30253544}
   m_Size:
     m_Target: 5.689335
     speed: 2
