@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 50}
   m_MaxSize: {x: 8096, y: 8096}
   vertical: 1
-  controlID: 2948
+  controlID: 12046
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -103,18 +103,18 @@ MonoBehaviour:
       y: 21
       width: 1536
       height: 680.8
-    m_Scale: {x: 1.092727, y: 1.092727}
-    m_Translation: {x: 784.83264, y: 339.49255}
+    m_Scale: {x: 1, y: 1}
+    m_Translation: {x: 768, y: 340.4}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -718.2331
-      y: -310.6838
-      width: 1405.6577
-      height: 623.02844
+      x: -768
+      y: -340.4
+      width: 1536
+      height: 680.8
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 1920, y: 877.25}
@@ -507,9 +507,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 166.88788, y: -54.74874, z: 253.3803}
+    m_Target: {x: 99.68986, y: 41.471672, z: -128.52835}
     speed: 2
-    m_Value: {x: 166.88788, y: -54.74874, z: 253.3803}
+    m_Value: {x: 99.68986, y: 41.471672, z: -128.52835}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -555,13 +555,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.09765161, y: 0.4098214, z: -0.0443297, w: 0.90633315}
+    m_Target: {x: -0.03538819, y: 0.036068793, z: -0.001309455, w: -0.99923366}
     speed: 2
-    m_Value: {x: 0.09760798, y: 0.40963826, z: -0.04430989, w: 0.9059282}
+    m_Value: {x: -0.035370108, y: 0.03605036, z: -0.0013087859, w: -0.99872303}
   m_Size:
-    m_Target: 202.72458
+    m_Target: 5.689335
     speed: 2
-    m_Value: 202.72458
+    m_Value: 5.689335
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -622,7 +622,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_ViewTransforms:
     m_KeySerializationHelper:
-    - {fileID: 6722796537889171964, guid: fb28a853d5ca4bc4daa4d590fe1dbb61, type: 2}
+    - {fileID: 5893256168347642294, guid: 5921ee3b617aa044895d0446082989aa, type: 2}
     m_ValueSerializationHelper:
     - e00: 1
       e01: 0
@@ -641,9 +641,9 @@ MonoBehaviour:
       e32: 0
       e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: fb28a853d5ca4bc4daa4d590fe1dbb61, type: 2}
+  m_AnimatorController: {fileID: 9100000, guid: 5921ee3b617aa044895d0446082989aa, type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: 6722796537889171964, guid: fb28a853d5ca4bc4daa4d590fe1dbb61, type: 2}
+  - m_Target: {fileID: 5893256168347642294, guid: 5921ee3b617aa044895d0446082989aa, type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
   stateMachineGraphGUI: {fileID: 0}
