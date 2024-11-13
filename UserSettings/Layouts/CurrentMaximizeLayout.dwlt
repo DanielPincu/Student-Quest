@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 50}
   m_MaxSize: {x: 8096, y: 8096}
   vertical: 1
-  controlID: 7891
+  controlID: 18405
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -506,9 +506,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 107.92413, y: 41.288822, z: -156.63399}
+    m_Target: {x: -448.83453, y: 6.0047116, z: 125.04787}
     speed: 2
-    m_Value: {x: 107.92413, y: 41.288822, z: -156.63399}
+    m_Value: {x: -448.83453, y: 6.0047116, z: 125.04787}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -549,18 +549,18 @@ MonoBehaviour:
         m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0}
+      m_Size: {x: 1, y: 1}
     m_ShowGrid: 1
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.043266173, y: 0.9544217, z: -0.1671229, w: 0.24579808}
+    m_Target: {x: -0.24961032, y: 0.52870315, z: -0.16596039, w: -0.7950133}
     speed: 2
-    m_Value: {x: 0.043241546, y: 0.9538784, z: -0.16702777, w: 0.24565816}
+    m_Value: {x: -0.24943313, y: 0.5283278, z: -0.16584258, w: -0.794449}
   m_Size:
-    m_Target: 5.689335
+    m_Target: 17.67796
     speed: 2
-    m_Value: 5.689335
+    m_Value: 17.67796
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -578,7 +578,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 0
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: 0, y: 0, z: 0, w: 0}
+  m_LastSceneViewRotation: {x: -0.061108246, y: 0.68153393, z: -0.056700144, w: -0.7279126}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
