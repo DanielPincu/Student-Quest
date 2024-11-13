@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 50}
   m_MaxSize: {x: 8096, y: 8096}
   vertical: 1
-  controlID: 3460
+  controlID: 6703
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -506,9 +506,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 94.66889, y: 46.426414, z: -170.61507}
+    m_Target: {x: -143.92755, y: 55.301544, z: -113.69048}
     speed: 2
-    m_Value: {x: 94.66889, y: 46.426414, z: -170.61507}
+    m_Value: {x: -143.92755, y: 55.301544, z: -113.69048}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -554,9 +554,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.15598801, y: 0.5058656, z: -0.09392474, w: -0.8438304}
+    m_Target: {x: 0.100326985, y: -0.31905848, z: 0.03440671, w: 0.9423792}
     speed: 2
-    m_Value: {x: -0.15590198, y: 0.50558656, z: -0.093872935, w: -0.843365}
+    m_Value: {x: 0.10027054, y: -0.31887898, z: 0.034387354, w: 0.941849}
   m_Size:
     m_Target: 5.689335
     speed: 2
